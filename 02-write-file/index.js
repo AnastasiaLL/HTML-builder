@@ -12,10 +12,42 @@ const readline = require('readline').createInterface({
 })
 
 readline.question('Привет! напиши мне пару строчек ', (name) => {
-    //здесь должна быть проверка на пустой файл. если пустой, то writeFile. иначе - append
-    fs.appendFile(textWay, `\nname`, err=>{
-        if (err){throw err}
-    })
-        //здесь должна быть проверка на событие ктрл+с или слово eэкзит
-    readline.close()
+    if (name === 'exit'){ 
+        // process.stdout.write('пока!')
+        readline.close()
+    } else {
+
+        fs.appendFile(textWay, `${name}\n`, err=>{
+            if (err){throw err}
+            readline.close()
+
+        })
+    }
+
+    
 })
+
+process.on('exit', ()=>{
+    process.stdout.write('\nbye!\n')
+})
+
+
+
+
+
+
+// output.write('введите 1е')
+// readline.on('line', (value) => {
+//     if (value === 'exit'){
+//         readline.close();
+//     }else {
+//         output.write('2e: ')
+//         let str = value.toString();
+//         textWay.write(`${str}\n`)
+//     }
+// })
+
+// process.on('exit', ()=>{
+//   console.log('\nbye!\n')
+//   output.write('clouse')
+// })
